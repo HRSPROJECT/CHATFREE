@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #landingPage { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f4; }
+        #landingPage button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        #chatContainer { display: none; flex-direction: column; height: 100vh; }
+        #header { background: #007bff; color: white; padding: 15px; text-align: center; font-size: 20px; display: flex; align-items: center; justify-content: space-between; }
+        #header button { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; }
+        #chatMessages { flex: 1; padding: 15px; overflow-y: auto; background: #e5ddd5; position: relative; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 10px; position: relative; }
+        .myMessage { background: #dcf8c6; text-align: right; }
+        .othersMessage { background: rgba(0, 123, 255, 0.2); }
+        .username { font-size: 0.8em; font-weight: bold; color: gray; }
+        #inputArea { display: flex; padding: 10px; background: #f0f0f0; }
+        #messageInput { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        #sendButton { margin-left: 10px; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .popup input { display: block; width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        #qrCode { margin-top: 10px; text-align: center; }
+        .edit-options { display: none; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: white; padding: 5px 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .edit-options button { margin: 5px 0; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .edit-options button:hover { background: #f0f0f0; }
+        .message:hover .edit-options { display: block; }
+    </style>
+</head>
+<body>
+    <div id="landingPage">
+        <style>
+            /* Basic styling for the chat website */
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: Arial, sans-serif;
+            }
+        
+            body {
+              background-color: #f4f7fb;
+              color: #333;
+            }
+        
+            .chat-app {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-top: 50px;
+            }
+        
+            .chat-header {
+              text-align: center;
+              margin-bottom: 20px;
+            }
+        
+            .chat-title {
+              font-size: 2.5rem;
+              color: #4a90e2;
+            }
+        
+            .chat-description {
+              font-size: 1.2rem;
+              color: #666;
+            }
+        
+            .chat-link-description {
+              font-size: 1rem;
+              margin-top: 10px;
+            }
+        
+            .chat-link {
+              text-decoration: none;
+              color: #4a90e2;
+            }
+        
+            .chat-tag-list {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-top: 20px;
+            }
+        
+            .chat-loop-slider {
+              display: flex;
+              overflow: hidden;
+              width: 80%;
+              margin-bottom: 20px;
+              position: relative;
+            }
+        
+            .chat-inner {
+              display: flex;
+              flex-wrap: nowrap;
+              animation: slide 10s linear infinite;
+            }
+        
+            .chat-tag {
+              font-size: 1.5rem;
+              background-color: #fff;
+              margin: 0 10px;
+              padding: 10px 20px;
+              border-radius: 30px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              transition: background-color 0.3s ease;
+            }
+        
+            .chat-tag span {
+              font-weight: bold;
+              margin-right: 5px;
+            }
+        
+            .chat-tag:hover {
+              background-color: #4a90e2;
+              color: #fff;
+            }
+        
+            .chat-fade {
+              height: 5px;
+              width: 100%;
+              background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+              margin-top: 20px;
+            }
+        
+            @keyframes slide {
+              0% {
+                transform: translateX(0);
+              }
+        
+              100% {
+                transform: translateX(-100%);
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="chat-app">
+            <div class="chat-header">
+              <h1 class="chat-title">Chat Website </h1>
+              
+              
+            </div>
+            <div class="chat-tag-list">
+              <div class="chat-loop-slider" style="--duration:15951ms; --direction:normal;">
+                <div class="chat-inner">
+                  <div class="chat-tag"><span>#</span> General Chat</div>
+                  <div class="chat-tag"><span>#</span> Private Messages</div>
+                  <div class="chat-tag"><span>#</span> Chat Commands</div>
+                  <div class="chat-tag"><span>#</span> Chat Rooms</div>
+                  <div class="chat-tag"><span>#</span> Emoji Support</div>
+                  <!-- duplicated content -->
+                  <div class="chat-tag"><span>#</span> General Chat</div>
+                  <div class="chat-tag"><span>#</span> Private Messages</div>
+                  <div class="chat-tag"><span>#</span> Chat Commands</div>
+                  <div class="chat-tag"><span>#</span> Chat Rooms</div>
+                  <div class="chat-tag"><span>#</span> Emoji Support</div>
+                </div>
+              </div>
+              <div class="chat-loop-slider" style="--duration:15936ms; --direction:normal;">
+                <div class="chat-inner">
+                  <div class="chat-tag"><span>#</span> Group Chats</div>
+                  <div class="chat-tag"><span>#</span> Direct Messages</div>
+                  <div class="chat-tag"><span>#</span> Moderation</div>
+                  <div class="chat-tag"><span>#</span> Chat History</div>
+                  <div class="chat-tag"><span>#</span> Mentions</div>
+                  <!-- duplicated content -->
+                  <div class="chat-tag"><span>#</span> Group Chats</div>
+                  <div class="chat-tag"><span>#</span> Direct Messages</div>
+                  <div class="chat-tag"><span>#</span> Moderation</div>
+                  <div class="chat-tag"><span>#</span> Chat History</div>
+                  <div class="chat-tag"><span>#</span> Mentions</div>
+                </div>
+              </div>
+              <div class="chat-loop-slider" style="--duration:15936ms; --direction:normal;">
+                <div class="chat-inner">
+                  <div class="chat-tag"><span>#</span> Custom Stickers</div>
+                  <div class="chat-tag"><span>#</span> Chat Themes</div>
+                  <div class="chat-tag"><span>#</span> Chat Settings</div>
+                  <div class="chat-tag"><span>#</span> Active Users</div>
+                  <div class="chat-tag"><span>#</span> Blocked Users</div>
+                  <!-- duplicated content -->
+                  <div class="chat-tag"><span>#</span> Custom Stickers</div>
+                  <div class="chat-tag"><span>#</span> Chat Themes</div>
+                  <div class="chat-tag"><span>#</span> Chat Settings</div>
+                  <div class="chat-tag"><span>#</span> Active Users</div>
+                  <div class="chat-tag"><span>#</span> Blocked Users</div>
+                </div>
+              </div>
+              <div class="chat-fade"></div>
+            </div>
+          </div>
+       
+        <button id="createGroupButton">Create Group</button>
+        <button id="joinGroupButton">Join Group</button>
+        
+    </div>
+
+    <div id="chatContainer">
+        <div id="header">
+            <div>Group Chat</div>
+            <button id="shareGroupButton">Share</button>
+        </div>
+        <div id="chatMessages"></div>
+        <div id="inputArea">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <div id="createGroupPopup" class="popup">
+        <h3>Create Group</h3>
+        <input type="text" id="groupNameInput" placeholder="Enter Group Name">
+        <input type="text" id="usernameInputCreate" placeholder="Enter Your Username">
+        <button id="createGroupSubmit">Create</button>
+        <div id="qrCode"></div>
+    </div>
+
+    <div id="joinGroupPopup" class="popup">
+        <h3>Join Group</h3>
+        <input type="text" id="joinLinkInput" placeholder="Enter Group Link">
+        <button id="joinLinkSubmit">Join</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        // Firebase Initialization
+        const firebaseConfig = {  apiKey: "AIzaSyCNyZAmw3D8aCqNOHOw0f3YKtZWNatauN8",
+      authDomain: "hello-4105a.firebaseapp.com",
+      databaseURL: "https://hello-4105a-default-rtdb.firebaseio.com",
+      projectId: "hello-4105a",
+      storageBucket: "hello-4105a.appspot.com",
+      messagingSenderId: "978669199403",
+      appId: "1:978669199403:web:6c20e3dbaf815bba890a6e",
+      measurementId: "G-2TGPP3E88X", };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let groupId = null;
+        let username = null;
+
+        // UI Elements
+        const landingPage = document.getElementById('landingPage');
+        const chatContainer = document.getElementById('chatContainer');
+        const createGroupPopup = document.getElementById('createGroupPopup');
+        const joinGroupPopup = document.getElementById('joinGroupPopup');
+        const qrCodeDiv = document.getElementById('qrCode');
+
+        // Create Group
+        document.getElementById('createGroupButton').onclick = () => {
+            createGroupPopup.style.display = 'block';
+        };
+
+        document.getElementById('createGroupSubmit').onclick = async () => {
+            const groupName = document.getElementById('groupNameInput').value.trim();
+            username = document.getElementById('usernameInputCreate').value.trim();
+            groupId = Math.random().toString(36).substring(2, 15); // Random unique group ID
+
+            // Save group to Firestore
+            await db.collection('groups').doc(groupId).set({ groupName, createdBy: username });
+            const groupLink = `${window.location.origin}/?groupId=${groupId}`;
+            qrCodeDiv.innerHTML = '';
+            QRCode.toCanvas(qrCodeDiv, groupLink, { width: 150 });
+
+            startChat();
+        };
+
+        // Join Group
+        document.getElementById('joinGroupButton').onclick = () => {
+            joinGroupPopup.style.display = 'block';
+        };
+
+        document.getElementById('joinLinkSubmit').onclick = () => {
+            const groupLink = document.getElementById('joinLinkInput').value.trim();
+            groupId = new URL(groupLink).searchParams.get('groupId');
+            username = prompt("Enter your username:");
+            startChat();
+        };
+
+        // Share Group
+        document.getElementById('shareGroupButton').onclick = () => {
+            const groupLink = `${window.location.origin}/?groupId=${groupId}`;
+            prompt("Share this link to invite others:", groupLink);
+        };
+
+        // Start Chat
+        function startChat() {
+            landingPage.style.display = 'none';
+            createGroupPopup.style.display = 'none';
+            joinGroupPopup.style.display = 'none';
+            chatContainer.style.display = 'flex';
+            listenForMessages();
+        }
+
+        // Send Message
+        document.getElementById('sendButton').onclick = async () => {
+            const messageText = document.getElementById('messageInput').value.trim();
+            if (messageText) {
+                await db.collection('groups').doc(groupId).collection('messages').add({
+                    username,
+                    text: messageText,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                document.getElementById('messageInput').value = '';
+            }
+        };
+
+        // Listen for Messages
+        function listenForMessages() {
+            db.collection('groups').doc(groupId).collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const msg = doc.data();
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message ${msg.username === username ? 'myMessage' : 'othersMessage'}`;
+                    messageDiv.innerHTML = `<div class="username">${msg.username}</div>${msg.text}`;
+                    
+                    // Add edit options for my messages
+                    if (msg.username === username) {
+                        const editOptions = document.createElement('div');
+                        editOptions.className = 'edit-options';
+                        editOptions.innerHTML = `
+                            <button onclick="editMessage('${doc.id}')">Edit</button>
+                            <button onclick="deleteMessage('${doc.id}')">Delete</button>
+                        `;
+                        messageDiv.appendChild(editOptions);
+                    }
+
+                    chatMessages.appendChild(messageDiv);
+                });
+            });
+        }
+
+        // Edit Message
+        function editMessage(messageId) {
+            // Get the message content
+            const messageRef = db.collection('groups').doc(groupId).collection('messages').doc(messageId);
+            messageRef.get().then(doc => {
+                const messageText = doc.data().text;
+                const newMessage = prompt("Edit your message:", messageText);
+                if (newMessage !== null) {
+                    messageRef.update({ text: newMessage });
+                }
+            });
+        }
+
+        // Delete Message
+        function deleteMessage(messageId) {
+            // Delete message from Firestore
+            db.collection('groups').doc(groupId).collection('messages').doc(messageId).delete();
+        }
+    </script>
+    
+</body>
+</html>
