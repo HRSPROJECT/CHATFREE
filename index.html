@@ -6,332 +6,269 @@
     <title>Group Chat</title>
     <style>
        /* Reset and Basic Styling */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-body { background-color: #f4f7fb; color: #333; }
+      
+/* General Reset and Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 /* Landing Page */
 #landingPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(145deg, #004e92, #000428);
+  color: white;
+  text-align: center;
 }
 #landingPage button {
-    margin: 10px;
-    padding: 12px 25px;
-    font-size: 18px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    transition: background 0.3s ease;
+  margin: 10px;
+  padding: 14px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
 }
-#landingPage button:hover { background-color: #0056b3; }
+#landingPage button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(90deg, #ff6b6b, #ff8c42);
+}
 
 /* Chat Container */
 #chatContainer {
-    display: none;
-    flex-direction: column;
-    height: 100vh;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    z-index: 100;
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: rgb(81, 129, 9);
+  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Chat Header */
+/* Header Styling */
 #header {
-    background: #007bff;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    border-bottom: 2px solid #0056b3;
+  background: linear-gradient(90deg, #1f4037, #99f2c8);
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
 }
 #header button {
-    background-color: white;
-    color: #007bff;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 5px;
+  background: white;
+  color: #1e3c72;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  
 }
-#header button:hover { background-color: #f0f0f0; }
+#header button:hover {
+  transform: scale(1.1);
+  background: #f4f4f4;
+}
 
 /* Chat Messages */
 #chatMessages {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #e5ddd5;
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: white;
+  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
 }
 .message {
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 15px;
-    position: relative;
-    max-width: 70%;
-    word-wrap: break-word;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 20px;
+  max-width: 70%;
+  word-wrap: break-word;
+  position: relative;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .myMessage {
-    background: #dcf8c6;
-    margin-left: auto;
-    text-align: right;
+  background: #dcf8c6;
+  margin-left: auto;
 }
 .othersMessage {
-    background: rgba(0, 123, 255, 0.1);
-}
-.username {
-    font-size: 0.8em;
-    color: #555;
-    margin-bottom: 5px;
+  background: rgba(30, 60, 114, 0.1);
 }
 
-/* Message Input Area */
+/* Input Area */
 #inputArea {
-    display: flex;
-    padding: 15px;
-    background-color: #f0f0f0;
-    border-top: 2px solid #e5e5e5;
+  display: flex;
+  padding: 15px;
+  background: #e8e8e8;
+  border-top: 2px solid #ddd;
 }
 #messageInput {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-right: 10px;
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin-right: 10px;
+  transition: border-color 0.3s ease;
+}
+#messageInput:focus {
+  border-color: #1e3c72;
+  outline: none;
 }
 #sendButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background 0.3s ease;
+  background: linear-gradient(90deg, #ff6e7f, #bfe9ff);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
-#sendButton:hover { background-color: #0056b3; }
+#sendButton:hover {
+  transform: scale(1.1);
+}
 
-/* Popup Styles */
+/* Popup Styling */
 .popup {
-    display: none;
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 25px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  color: #333;
 }
-.popup h3 { margin-bottom: 15px; }
+.popup h3 {
+  margin-bottom: 15px;
+}
 .popup input {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 .popup button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.3s ease;
+  background: #1e3c72;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
-.popup button:hover { background-color: #0056b3; }
+.popup button:hover {
+  background: #99f2c8;
+}
 
-/* QR Code Styling */
-#qrCode { margin-top: 20px; text-align: center; }
-
-/* Media Queries for Mobile and Laptop */
-
-/* For mobile devices */
+/* Responsive Styles */
 @media (max-width: 768px) {
-    #chatMessages { padding: 10px; }
-    .message { max-width: 85%; font-size: 14px; }
-    #header { flex-direction: column; text-align: center; }
-    #inputArea { flex-direction: column; gap: 10px; }
-    #messageInput, #sendButton { width: 100%; }
+  #landingPage {
+    padding: 20px;
+  }
+  #header {
+    flex-direction: column;
+    text-align: center;
+  }
+  #inputArea {
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    margin-top: 550px;
+    width: 100%;
+
+  }
+  #messageInput,
+  #sendButton {
+    width: 100%;
+  }
+  #chatMessages {
+    position: absolute;
+    margin-top: 150px;
+    width: 100%;
+    
+  }
+  #increaseSize{
+    width: 50px;
+    margin-right: 80%;
+    margin-top: -20px;
+  }
+  #decreaseSize{
+    width: 50px;
+    margin-right: 50%;
+    margin-top: -25px;
+  }
+ 
 }
 
-/* For laptops and larger screens */
 @media (min-width: 769px) {
-    #landingPage { padding: 50px; }
-    #chatMessages { padding: 30px; }
-    .message { max-width: 60%; font-size: 16px; }
-    #inputArea { flex-direction: row; }
+  #chatMessages {
+    padding: 30px;
+
+    
+  }
+  .message {
+    max-width: 60%;
+    font-size: 16px;
+  }
 }
-* {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-              font-family: Arial, sans-serif;
-            }
-        
-            body {
-              background-color: #f4f7fb;
-              color: #333;
-            }
-        
-            .chat-app {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              margin-top: 50px;
-            }
-        
-            .chat-header {
-              text-align: center;
-              margin-bottom: 20px;
-            }
-        
-            .chat-title {
-              font-size: 2.5rem;
-              color: #4a90e2;
-            }
-        
-            .chat-description {
-              font-size: 1.2rem;
-              color: #666;
-            }
-        
-            .chat-link-description {
-              font-size: 1rem;
-              margin-top: 10px;
-            }
-        
-            .chat-link {
-              text-decoration: none;
-              color: #4a90e2;
-            }
-        
-            .chat-tag-list {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              margin-top: 20px;
-            }
-        
-            .chat-loop-slider {
-              display: flex;
-              overflow: hidden;
-              width: 80%;
-              margin-bottom: 20px;
-              position: relative;
-            }
-        
-            .chat-inner {
-              display: flex;
-              flex-wrap: nowrap;
-              animation: slide 10s linear infinite;
-            }
-        
-            .chat-tag {
-              font-size: 1.5rem;
-              background-color: #fff;
-              margin: 0 10px;
-              padding: 10px 20px;
-              border-radius: 30px;
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-              transition: background-color 0.3s ease;
-            }
-        
-            .chat-tag span {
-              font-weight: bold;
-              margin-right: 5px;
-            }
-        
-            .chat-tag:hover {
-              background-color: #4a90e2;
-              color: #fff;
-            }
-        
-            .chat-fade {
-              height: 5px;
-              width: 100%;
-              background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-              margin-top: 20px;
-            }
-        
-            @keyframes slide {
-              0% {
-                transform: translateX(0);
-              }
-        
-              100% {
-                transform: translateX(-100%);
-              }
-            }
-    </style>
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: #c50000;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: #c50000;
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+</style>
+
+
 </head>
 <body>
     <div id="landingPage">
        
-        </head>
-        <body>
-          <div class="chat-app">
-            <div class="chat-header">
-              <h1 class="chat-title">Chat Website </h1>
-              
-              
-            </div>
-            <div class="chat-tag-list">
-              <div class="chat-loop-slider" style="--duration:15951ms; --direction:normal;">
-                <div class="chat-inner">
-                  <div class="chat-tag"><span>#</span> General Chat</div>
-                  <div class="chat-tag"><span>#</span> Private Messages</div>
-                  <div class="chat-tag"><span>#</span> Chat Commands</div>
-                  <div class="chat-tag"><span>#</span> Chat Rooms</div>
-                  <div class="chat-tag"><span>#</span> Emoji Support</div>
-                  <!-- duplicated content -->
-                  <div class="chat-tag"><span>#</span> General Chat</div>
-                  <div class="chat-tag"><span>#</span> Private Messages</div>
-                  <div class="chat-tag"><span>#</span> Chat Commands</div>
-                  <div class="chat-tag"><span>#</span> Chat Rooms</div>
-                  <div class="chat-tag"><span>#</span> Emoji Support</div>
-                </div>
-              </div>
-              <div class="chat-loop-slider" style="--duration:15936ms; --direction:normal;">
-                <div class="chat-inner">
-                  <div class="chat-tag"><span>#</span> Group Chats</div>
-                  <div class="chat-tag"><span>#</span> Direct Messages</div>
-                  <div class="chat-tag"><span>#</span> Moderation</div>
-                  <div class="chat-tag"><span>#</span> Chat History</div>
-                  <div class="chat-tag"><span>#</span> Mentions</div>
-                  <!-- duplicated content -->
-                  <div class="chat-tag"><span>#</span> Group Chats</div>
-                  <div class="chat-tag"><span>#</span> Direct Messages</div>
-                  <div class="chat-tag"><span>#</span> Moderation</div>
-                  <div class="chat-tag"><span>#</span> Chat History</div>
-                  <div class="chat-tag"><span>#</span> Mentions</div>
-                </div>
-              </div>
-              <div class="chat-loop-slider" style="--duration:15936ms; --direction:normal;">
-                <div class="chat-inner">
-                  <div class="chat-tag"><span>#</span> Custom Stickers</div>
-                  <div class="chat-tag"><span>#</span> Chat Themes</div>
-                  <div class="chat-tag"><span>#</span> Chat Settings</div>
-                  <div class="chat-tag"><span>#</span> Active Users</div>
-                  <div class="chat-tag"><span>#</span> Blocked Users</div>
-                  <!-- duplicated content -->
-                  <div class="chat-tag"><span>#</span> Custom Stickers</div>
-                  <div class="chat-tag"><span>#</span> Chat Themes</div>
-                  <div class="chat-tag"><span>#</span> Chat Settings</div>
-                  <div class="chat-tag"><span>#</span> Active Users</div>
-                  <div class="chat-tag"><span>#</span> Blocked Users</div>
-                </div>
-              </div>
-              <div class="chat-fade"></div>
-            </div>
-          </div>
+
+<div class="twelve">
+    <h1>CHAT FREE</h1>
+  </div>
+      
+  
+        
+         
        
         <button id="createGroupButton">Create Group</button>
         <button id="joinGroupButton">Join Group</button>
@@ -343,22 +280,13 @@ body { background-color: #f4f7fb; color: #333; }
             <div>Group Chat</div>
             <button id="shareGroupButton">Share</button>
            <!-- QR Code Sharing Section -->
-           
-        
-
+           <button id="increaseSize">+</button>
+           <button id="decreaseSize">-</button>
         </div>
-        <SCRIPT>
-            
-
-// Copy share link
-function copyShareLink() {
-    const link = `${window.location.origin}?group=${groupId}`;
-    navigator.clipboard.writeText(link).then(() => alert("Link copied to clipboard!"));
-}
-
-        </SCRIPT>
+       
         <div id="chatMessages"></div>
         <div id="inputArea">
+            <div id="dragHandle">⋮⋮⋮</div>
             <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendButton">Send</button>
         </div>
@@ -383,140 +311,32 @@ function copyShareLink() {
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
         // Firebase Initialization
-        const firebaseConfig = {  apiKey: "AIzaSyCNyZAmw3D8aCqNOHOw0f3YKtZWNatauN8",
-      authDomain: "hello-4105a.firebaseapp.com",
-      databaseURL: "https://hello-4105a-default-rtdb.firebaseio.com",
-      projectId: "hello-4105a",
-      storageBucket: "hello-4105a.appspot.com",
-      messagingSenderId: "978669199403",
-      appId: "1:978669199403:web:6c20e3dbaf815bba890a6e",
-      measurementId: "G-2TGPP3E88X", };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+      // Firebase Initialization
+const firebaseConfig = {
+    apiKey: "AIzaSyCNyZAmw3D8aCqNOHOw0f3YKtZWNatauN8",
+    authDomain: "hello-4105a.firebaseapp.com",
+    databaseURL: "https://hello-4105a-default-rtdb.firebaseio.com",
+    projectId: "hello-4105a",
+    storageBucket: "hello-4105a.appspot.com",
+    messagingSenderId: "978669199403",
+    appId: "1:978669199403:web:6c20e3dbaf815bba890a6e",
+    measurementId: "G-2TGPP3E88X",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-        let groupId = null;
-        let username = null;
+let groupId = null;
+let username = null;
 
-        // UI Elements
-        const landingPage = document.getElementById('landingPage');
-        const chatContainer = document.getElementById('chatContainer');
-        const createGroupPopup = document.getElementById('createGroupPopup');
-        const joinGroupPopup = document.getElementById('joinGroupPopup');
-        const qrCodeDiv = document.getElementById('qrCode');
+// UI Elements
+const landingPage = document.getElementById('landingPage');
+const chatContainer = document.getElementById('chatContainer');
+const createGroupPopup = document.getElementById('createGroupPopup');
+const joinGroupPopup = document.getElementById('joinGroupPopup');
+const chatMessages = document.getElementById('chatMessages');
+const messageInput = document.getElementById('messageInput');
 
-        // Create Group
-        document.getElementById('createGroupButton').onclick = () => {
-            createGroupPopup.style.display = 'block';
-        };
-
-        document.getElementById('createGroupSubmit').onclick = async () => {
-            const groupName = document.getElementById('groupNameInput').value.trim();
-            username = document.getElementById('usernameInputCreate').value.trim();
-            groupId = Math.random().toString(36).substring(2, 15); // Random unique group ID
-
-            // Save group to Firestore
-            await db.collection('groups').doc(groupId).set({ groupName, createdBy: username });
-            const groupLink = `${window.location.origin}/?groupId=${groupId}`;
-            qrCodeDiv.innerHTML = '';
-            QRCode.toCanvas(qrCodeDiv, groupLink, { width: 150 });
-
-            startChat();
-        };
-
-        // Join Group
-        document.getElementById('joinGroupButton').onclick = () => {
-            joinGroupPopup.style.display = 'block';
-        };
-
-        document.getElementById('joinLinkSubmit').onclick = () => {
-            const groupLink = document.getElementById('joinLinkInput').value.trim();
-            groupId = new URL(groupLink).searchParams.get('groupId');
-            username = prompt("Enter your username:");
-            startChat();
-        };
-
-        // Share Group
-        document.getElementById('shareGroupButton').onclick = () => {
-            const groupLink = `${window.location.origin}/?groupId=${groupId}`;
-            prompt("Share this link to invite others:", groupLink);
-        };
-
-        // Start Chat
-        function startChat() {
-            landingPage.style.display = 'none';
-            createGroupPopup.style.display = 'none';
-            joinGroupPopup.style.display = 'none';
-            chatContainer.style.display = 'flex';
-            listenForMessages();
-        }
-
-        // Send Message
-        document.getElementById('sendButton').onclick = async () => {
-            const messageText = document.getElementById('messageInput').value.trim();
-            if (messageText) {
-                await db.collection('groups').doc(groupId).collection('messages').add({
-                    username,
-                    text: messageText,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                document.getElementById('messageInput').value = '';
-            }
-        };
-
-        // Listen for Messages
-        function listenForMessages() {
-            db.collection('groups').doc(groupId).collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
-                const chatMessages = document.getElementById('chatMessages');
-                chatMessages.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const msg = doc.data();
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = `message ${msg.username === username ? 'myMessage' : 'othersMessage'}`;
-                    messageDiv.innerHTML = `<div class="username">${msg.username}</div>${msg.text}`;
-                    
-                    // Add edit options for my messages
-                    if (msg.username === username) {
-                        const editOptions = document.createElement('div');
-                        editOptions.className = 'edit-options';
-                        editOptions.innerHTML = `
-                            <button class="edit"onclick="editMessage('${doc.id}')">Edit</button>
-                            <button class="edit" onclick="deleteMessage('${doc.id}')">Delete</button>
-                            <style>.edit{background-color: #007bff;
-    color: white;
-    border: none;
-    padding:5px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background 0.3s ease;
-}</style>
-                        `;
-                        messageDiv.appendChild(editOptions);
-                    }
-
-                    chatMessages.appendChild(messageDiv);
-                });
-            });
-        }
-
-        // Edit Message
-        function editMessage(messageId) {
-            // Get the message content
-            const messageRef = db.collection('groups').doc(groupId).collection('messages').doc(messageId);
-            messageRef.get().then(doc => {
-                const messageText = doc.data().text;
-                const newMessage = prompt("Edit your message:", messageText);
-                if (newMessage !== null) {
-                    messageRef.update({ text: newMessage });
-                }
-            });
-        }
-
-        // Delete Message
-        function deleteMessage(messageId) {
-            // Delete message from Firestore
-            db.collection('groups').doc(groupId).collection('messages').doc(messageId).delete();
-        }
-        // Function to show/hide popups
+// Show/Hide Popup Functions
 function showPopup(popupId) {
     document.getElementById(popupId).style.display = 'block';
 }
@@ -525,10 +345,216 @@ function hidePopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
 
-// Event listeners for popup buttons
+// Create Group
 document.getElementById('createGroupButton').onclick = () => {
     showPopup('createGroupPopup');
 };
+
+document.getElementById('createGroupSubmit').onclick = async () => {
+    const groupName = document.getElementById('groupNameInput').value.trim();
+    username = document.getElementById('usernameInputCreate').value.trim();
+    groupId = Math.random().toString(36).substring(2, 15); // Generate unique group ID
+
+    if (!groupName || !username) {
+        alert("Group name and username are required!");
+        return;
+    }
+
+    await db.collection('groups').doc(groupId).set({
+        groupName,
+        createdBy: username,
+    });
+
+    startChat();
+};
+
+// Join Group
+document.getElementById('joinGroupButton').onclick = () => {
+    showPopup('joinGroupPopup');
+};
+
+document.getElementById('joinLinkSubmit').onclick = () => {
+    const groupLink = document.getElementById('joinLinkInput').value.trim();
+
+    try {
+        groupId = new URL(groupLink).searchParams.get('groupId');
+        username = prompt("Enter your username:");
+        if (!username) {
+            alert("Username is required!");
+            return;
+        }
+        startChat();
+    } catch (e) {
+        alert("Invalid group link!");
+    }
+};
+
+// Share Group
+document.getElementById('shareGroupButton').onclick = () => {
+    const groupLink = `${window.location.origin}/?groupId=${groupId}`;
+    prompt("Share this link to invite others:", groupLink);
+};
+
+// Start Chat
+function startChat() {
+    landingPage.style.display = 'none';
+    createGroupPopup.style.display = 'none';
+    joinGroupPopup.style.display = 'none';
+    chatContainer.style.display = 'flex';
+    listenForMessages();
+}
+
+// Send Message
+document.getElementById('sendButton').onclick = async () => {
+    const messageText = messageInput.value.trim();
+    if (!messageText) return;
+
+    await db.collection('groups').doc(groupId).collection('messages').add({
+        username,
+        text: messageText,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    messageInput.value = '';
+};
+
+// Listen for Messages
+function listenForMessages() {
+    db.collection('groups').doc(groupId).collection('messages').orderBy('timestamp').onSnapshot((snapshot) => {
+        chatMessages.innerHTML = '';
+        snapshot.forEach((doc) => {
+            const msg = doc.data();
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${msg.username === username ? 'myMessage' : 'othersMessage'}`;
+            messageDiv.innerHTML = `<div class="username">${msg.username}</div>${msg.text}`;
+            messageDiv.className = `message ${msg.username === username ? 'myMessage' : 'othersMessage'}`;
+           // Get the buttons and the message div
+const increaseSizeButton = document.getElementById('increaseSize');
+const decreaseSizeButton = document.getElementById('decreaseSize');
+
+
+// Default font size
+let currentFontSize = 30; // In pixels
+
+// Function to increase the font size
+increaseSizeButton.addEventListener('click', () => {
+  currentFontSize += 2; // Increase by 2px (adjust as needed)
+  messageDiv.style.fontSize = `${currentFontSize}px`;
+});
+
+// Function to decrease the font size
+decreaseSizeButton.addEventListener('click', () => {
+  if (currentFontSize > 15) { // Prevent font size from going below 6px
+    currentFontSize -= 2; // Decrease by 2px (adjust as needed)
+    messageDiv.style.fontSize = `${currentFontSize}px`;
+  }
+});
+
+// You can also dynamically set content like this
+messageDiv.className = `message ${msg.username === username ? 'myMessage' : 'othersMessage'}`;
+messageDiv.innerHTML = `<div class="username">${msg.username}</div>${msg.text}`;
+
+
+            // Edit and Delete Options
+            if (msg.username === username) {
+                const editOptions = document.createElement('div');
+                editOptions.className = 'edit-options';
+                editOptions.innerHTML = `
+                    <button class="edit" onclick="editMessage('${doc.id}')">Edit</button>
+                    <button class="edit" onclick="deleteMessage('${doc.id}')">Delete</button>
+                    <style>/* CSS */
+.edit {
+  background-color: #fff000;
+  
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  
+  text-align: center;
+  transition: 200ms;
+  
+  box-sizing: border-box;
+  border: 0;
+  font-size: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.edit:not(:disabled):hover,
+.edit:not(:disabled):focus {
+  outline: 0;
+  background: #f4e603;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.edit:disabled {
+  filter: saturate(0.2) opacity(0.5);
+  -webkit-filter: saturate(0.2) opacity(0.5);
+  cursor: not-allowed;
+}
+</style>
+                `;
+                messageDiv.appendChild(editOptions);
+            }
+
+            chatMessages.appendChild(messageDiv);
+        });
+    });
+}
+
+// Edit Message
+window.editMessage = function (messageId) {
+    const messageRef = db.collection('groups').doc(groupId).collection('messages').doc(messageId);
+
+    messageRef.get().then((doc) => {
+        const messageText = doc.data().text;
+        const newMessage = prompt("Edit your message:", messageText);
+
+        if (newMessage !== null) {
+            messageRef.update({ text: newMessage });
+        }
+    });
+};
+
+// Delete Message
+window.deleteMessage = function (messageId) {
+    db.collection('groups').doc(groupId).collection('messages').doc(messageId).delete();
+};
+
+// Input Area Dragging
+const inputArea = document.getElementById('inputArea');
+const dragHandle = document.getElementById('dragHandle');
+let isDragging = false;
+let startY = 0;
+let initialBottom = 0;
+
+const savedPosition = localStorage.getItem('inputAreaBottom');
+if (savedPosition) {
+    inputArea.style.bottom = `${savedPosition}px`;
+}
+
+dragHandle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    initialBottom = parseFloat(getComputedStyle(inputArea).bottom);
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const offset = startY - e.clientY;
+    inputArea.style.bottom = `${initialBottom + offset}px`;
+});
+
+document.addEventListener('mouseup', () => {
+    if (isDragging) {
+        isDragging = false;
+        localStorage.setItem('inputAreaBottom', parseFloat(getComputedStyle(inputArea).bottom));
+    }
+});
+
+
  </script>
 
 <!-- QR Code Sharing Section -->
