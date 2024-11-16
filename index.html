@@ -5,34 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group Chat</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        #landingPage { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f4; }
-        #landingPage button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
-        #chatContainer { display: none; flex-direction: column; height: 100vh; }
-        #header { background: #007bff; color: white; padding: 15px; text-align: center; font-size: 20px; display: flex; align-items: center; justify-content: space-between; }
-        #header button { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; }
-        #chatMessages { flex: 1; padding: 15px; overflow-y: auto; background: #e5ddd5; position: relative; }
-        .message { margin: 10px 0; padding: 10px; border-radius: 10px; position: relative; }
-        .myMessage { background: #dcf8c6; text-align: right; }
-        .othersMessage { background: rgba(0, 123, 255, 0.2); }
-        .username { font-size: 0.8em; font-weight: bold; color: gray; }
-        #inputArea { display: flex; padding: 10px; background: #f0f0f0; }
-        #messageInput { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        #sendButton { margin-left: 10px; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
-        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
-        .popup input { display: block; width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        #qrCode { margin-top: 10px; text-align: center; }
-        .edit-options { display: none; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: white; padding: 5px 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
-        .edit-options button { margin: 5px 0; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; }
-        .edit-options button:hover { background: #f0f0f0; }
-        .message:hover .edit-options { display: block; }
-    </style>
-</head>
-<body>
-    <div id="landingPage">
-        <style>
-            /* Basic styling for the chat website */
-            * {
+       /* Reset and Basic Styling */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background-color: #f4f7fb; color: #333; }
+
+/* Landing Page */
+#landingPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+#landingPage button {
+    margin: 10px;
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+#landingPage button:hover { background-color: #0056b3; }
+
+/* Chat Container */
+#chatContainer {
+    display: none;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Chat Header */
+#header {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    border-bottom: 2px solid #0056b3;
+}
+#header button {
+    background-color: white;
+    color: #007bff;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#header button:hover { background-color: #f0f0f0; }
+
+/* Chat Messages */
+#chatMessages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #e5ddd5;
+}
+.message {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+.myMessage {
+    background: #dcf8c6;
+    margin-left: auto;
+    text-align: right;
+}
+.othersMessage {
+    background: rgba(0, 123, 255, 0.1);
+}
+.username {
+    font-size: 0.8em;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Message Input Area */
+#inputArea {
+    display: flex;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-top: 2px solid #e5e5e5;
+}
+#messageInput {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+#sendButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+#sendButton:hover { background-color: #0056b3; }
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.popup h3 { margin-bottom: 15px; }
+.popup input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.popup button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+.popup button:hover { background-color: #0056b3; }
+
+/* QR Code Styling */
+#qrCode { margin-top: 20px; text-align: center; }
+
+/* Media Queries for Mobile and Laptop */
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    #chatMessages { padding: 10px; }
+    .message { max-width: 85%; font-size: 14px; }
+    #header { flex-direction: column; text-align: center; }
+    #inputArea { flex-direction: column; gap: 10px; }
+    #messageInput, #sendButton { width: 100%; }
+}
+
+/* For laptops and larger screens */
+@media (min-width: 769px) {
+    #landingPage { padding: 50px; }
+    #chatMessages { padding: 30px; }
+    .message { max-width: 60%; font-size: 16px; }
+    #inputArea { flex-direction: row; }
+}
+* {
               margin: 0;
               padding: 0;
               box-sizing: border-box;
@@ -133,7 +270,11 @@
                 transform: translateX(-100%);
               }
             }
-          </style>
+    </style>
+</head>
+<body>
+    <div id="landingPage">
+       
         </head>
         <body>
           <div class="chat-app">
@@ -201,7 +342,21 @@
         <div id="header">
             <div>Group Chat</div>
             <button id="shareGroupButton">Share</button>
+           <!-- QR Code Sharing Section -->
+           
+        
+
         </div>
+        <SCRIPT>
+            
+
+// Copy share link
+function copyShareLink() {
+    const link = `${window.location.origin}?group=${groupId}`;
+    navigator.clipboard.writeText(link).then(() => alert("Link copied to clipboard!"));
+}
+
+        </SCRIPT>
         <div id="chatMessages"></div>
         <div id="inputArea">
             <input type="text" id="messageInput" placeholder="Type your message...">
@@ -324,8 +479,16 @@
                         const editOptions = document.createElement('div');
                         editOptions.className = 'edit-options';
                         editOptions.innerHTML = `
-                            <button onclick="editMessage('${doc.id}')">Edit</button>
-                            <button onclick="deleteMessage('${doc.id}')">Delete</button>
+                            <button class="edit"onclick="editMessage('${doc.id}')">Edit</button>
+                            <button class="edit" onclick="deleteMessage('${doc.id}')">Delete</button>
+                            <style>.edit{background-color: #007bff;
+    color: white;
+    border: none;
+    padding:5px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}</style>
                         `;
                         messageDiv.appendChild(editOptions);
                     }
@@ -353,7 +516,30 @@
             // Delete message from Firestore
             db.collection('groups').doc(groupId).collection('messages').doc(messageId).delete();
         }
-    </script>
+        // Function to show/hide popups
+function showPopup(popupId) {
+    document.getElementById(popupId).style.display = 'block';
+}
+
+function hidePopup(popupId) {
+    document.getElementById(popupId).style.display = 'none';
+}
+
+// Event listeners for popup buttons
+document.getElementById('createGroupButton').onclick = () => {
+    showPopup('createGroupPopup');
+};
+ </script>
+
+<!-- QR Code Sharing Section -->
+
+   
+
     
+    
+    
+        
+        
+        
 </body>
 </html>
