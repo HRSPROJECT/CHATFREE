@@ -56,8 +56,7 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: rgb(81, 129, 9);
-  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
+  background: #ffffff;
   color: #333;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -72,7 +71,6 @@ body {
   align-items: center;
   font-size: 20px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
 }
 #header button {
   background: white;
@@ -82,7 +80,6 @@ body {
   border-radius: 15px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
-  
 }
 #header button:hover {
   transform: scale(1.1);
@@ -94,8 +91,7 @@ body {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: white;
-  background-image: url('https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg');
+  background: #f9f9f9;
 }
 .message {
   margin: 10px 0;
@@ -218,9 +214,8 @@ body {
   #decreaseSize{
     width: 50px;
     margin-right: 50%;
-    margin-top: -25px;
+    margin-top: -2px;
   }
- 
 }
 
 @media (min-width: 769px) {
@@ -234,26 +229,6 @@ body {
     font-size: 16px;
   }
 }
-.twelve h1 {
-  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
-}
-.twelve h1:before {
-    background-color: #c50000;
-    content: '';
-    display: block;
-    height: 3px;
-    width: 75px;
-    margin-bottom: 5px;
-}
-.twelve h1:after {
-    background-color: #c50000;
-    content: '';
-    display: block;
-  position:absolute; right:0; bottom:0;
-    height: 3px;
-    width: 75px;
-    margin-bottom: 0.25em;
-}
 </style>
 
 
@@ -261,12 +236,6 @@ body {
 <body>
     <div id="landingPage">
        
-
-<div class="twelve">
-    <h1>CHAT FREE</h1>
-  </div>
-      
-  
         
          
        
@@ -434,7 +403,7 @@ const decreaseSizeButton = document.getElementById('decreaseSize');
 
 
 // Default font size
-let currentFontSize = 30; // In pixels
+let currentFontSize = 16; // In pixels
 
 // Function to increase the font size
 increaseSizeButton.addEventListener('click', () => {
@@ -444,7 +413,7 @@ increaseSizeButton.addEventListener('click', () => {
 
 // Function to decrease the font size
 decreaseSizeButton.addEventListener('click', () => {
-  if (currentFontSize > 15) { // Prevent font size from going below 6px
+  if (currentFontSize > 6) { // Prevent font size from going below 6px
     currentFontSize -= 2; // Decrease by 2px (adjust as needed)
     messageDiv.style.fontSize = `${currentFontSize}px`;
   }
